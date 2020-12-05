@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # refer https://github.com/JAremko/alpine-vim
 
@@ -30,6 +30,7 @@ RUN git clone https://github.com/majutsushi/tagbar
 RUN git clone https://github.com/junegunn/fzf.vim
 RUN git clone https://github.com/junegunn/vim-easy-align
 RUN git clone https://github.com/skywind3000/asyncrun.vim
+RUN git clone https://github.com/dense-analysis/ale
 
 # build YCM with c complete
 RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer
