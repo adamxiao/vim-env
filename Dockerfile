@@ -37,7 +37,10 @@ RUN apt update \
     ctags cscope \
     build-essential cmake
 
-#python3-dev python3-requests
+# install build software
+RUN apt update \
+    && apt install -y \
+    python3-dev
 
 # build YCM with c complete
 RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer
