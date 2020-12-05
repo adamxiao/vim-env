@@ -7,15 +7,9 @@ MAINTAINER  Adam Xiao "http://github.com/adamxiao"
 ENV DEBIAN_FRONTEND noninteractive
 ENV UHOME=/root
 
-ADD ./sources.list /etc/apt/sources.list
-
-RUN apt-get update -y \
-    && apt-get install -y \
-    vim \
-    git tmux zsh \
-    curl wget \
-    ctags cscope zsh \
-    build-essential cmake python3-dev python3-requests
+RUN apt update -y \
+	&& apt install -y git wget curl \
+	&& apt clean all
 
 # vim plugins:
 RUN mkdir -p $UHOME/.vim/bundle
@@ -31,6 +25,19 @@ RUN git clone https://github.com/junegunn/fzf.vim
 RUN git clone https://github.com/junegunn/vim-easy-align
 RUN git clone https://github.com/skywind3000/asyncrun.vim
 RUN git clone https://github.com/dense-analysis/ale
+
+#ADD ./sources.list /etc/apt/sources.list
+
+# install build software
+RUN apt update \
+    && apt install -y \
+    vim \
+    git tmux zsh \
+    curl wget \
+    ctags cscope \
+    build-essential cmake
+
+#python3-dev python3-requests
 
 # build YCM with c complete
 RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer
