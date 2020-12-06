@@ -43,7 +43,7 @@ RUN apt update \
     python3-dev
 
 # build YCM with c complete
-RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer
+RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer --clangd-completer
 
 # install fzf
 RUN git clone https://github.com/junegunn/fzf $UHOME/.fzf \
