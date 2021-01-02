@@ -2,13 +2,12 @@ FROM ubuntu:18.04
 
 # refer https://github.com/JAremko/alpine-vim
 
-MAINTAINER  Adam Xiao "http://github.com/adamxiao"
+MAINTAINER  Adam Xiao "iefcuxy@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV UHOME=/root
 
-ADD ./sources.list /etc/apt/sources.list
-
+# basic vim install
 RUN apt-get update -y \
     && apt-get install -y \
     vim \
@@ -17,31 +16,14 @@ RUN apt-get update -y \
     ctags cscope zsh \
     build-essential cmake python3-dev python3-requests
 
-# vim plugins:
-RUN mkdir -p $UHOME/.vim/bundle
-WORKDIR $UHOME/.vim/bundle
-RUN git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
-    && cd YouCompleteMe && git submodule update --init --recursive
+ADD ./dist/vimrc $UHOME/.vim/vimrc
+ADD ./dist/plug.vim $UHOME/.vim/autoload/plug.vim
 
-RUN git clone https://github.com/VundleVim/Vundle.vim
-RUN git clone https://github.com/scrooloose/nerdcommenter
-RUN git clone https://github.com/tpope/vim-sleuth
-RUN git clone https://github.com/majutsushi/tagbar
-RUN git clone https://github.com/junegunn/fzf.vim
-RUN git clone https://github.com/junegunn/vim-easy-align
-RUN git clone https://github.com/skywind3000/asyncrun.vim
+# install vim plugins:
+RUN vim +PlugInstall +qall
+#vi +':set nu' +':q!'
 
-# build YCM with c complete
-RUN cd $UHOME/.vim/bundle/YouCompleteMe && python3 ./install.py --clang-completer
-
-# install fzf
-RUN git clone https://github.com/junegunn/fzf $UHOME/.fzf \
-    && cd $UHOME/.fzf && ./install --bin
-
-# install adam vimrc
+# vim extra config
 RUN mkdir $UHOME/.vim_swap
-RUN cd $UHOME && git init . && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git && git fetch origin && git checkout master
-
-RUN cd $UHOME/.fzf && ./install --all
 
 WORKDIR $UHOME
