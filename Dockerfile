@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # refer https://github.com/JAremko/alpine-vim
 
@@ -6,6 +6,8 @@ MAINTAINER  Adam Xiao "iefcuxy@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV UHOME=/root
+ENV LANG en_US.UTF-8
+ENV LESSCHARSET utf-8
 
 # basic vim install
 RUN apt-get update -y \
@@ -23,7 +25,22 @@ ADD ./dist/plug.vim $UHOME/.vim/autoload/plug.vim
 RUN vim +PlugInstall +qall
 #vi +':set nu' +':q!'
 
+# install locales
+RUN apt install -y locales \
+	&& locale-gen zh_CN.UTF-8
+
 # vim extra config
 RUN mkdir $UHOME/.vim_swap
 
+# code static check tools
+RUN  apt install -y python3-pip \
+	&& pip3 install cpplint \
+	&& pip3 install autopep8 \
+	&& apt install -y cppcheck
+
+# default shell zsh
+RUN chsh -s /bin/zsh
+
 WORKDIR $UHOME
+
+CMD ["zsh"]
