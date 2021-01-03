@@ -38,6 +38,15 @@ RUN  apt install -y python3-pip \
 	&& pip3 install autopep8 \
 	&& apt install -y cppcheck
 
+# grep tools, format tools
+RUN apt install -y clang-format astyle \
+	ripgrep silversearcher-ag ack
+
+# clang-format default config
+COPY dist/_clang-format /root/.clang-format
+# ycm clangd default compile flags
+COPY dist/compile_flags.txt /root/compile_flags.txt
+
 # default shell zsh
 RUN chsh -s /bin/zsh
 

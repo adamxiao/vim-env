@@ -1,0 +1,11 @@
+-Wall
+-Wextra
+-Werror
+-fexceptions
+-DNDEBUG
+-DVARPREFIX="/var/lib/ksvd"
+-DPRGNAME="uniqb-ha"
+-DBUILD_DATE="12/01/20 08:26"
+-I/root/workspaces/uniqb/KSVD/common/include
+-I/root/workspaces/uniqb/KSVD/lib/boost
+-I/root/workspaces/uniqb/KSVD/common/libtoproto
