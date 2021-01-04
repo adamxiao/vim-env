@@ -53,8 +53,9 @@ RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/Yo
 	&& cd YouCompleteMe && git submodule update --init --recursive \
 	&& python3 ./install.py --clangd-completer
 
-RUN cd $UHOME && rm -f $UHOME/autoload/plug.vim $UHOME/.vim/vimrc $UHOME/.zshrc $UHOME/.zshrc \
-	&& git init . && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git && git fetch origin && git checkout plug-0102
+RUN cd $UHOME && git init . \
+	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
+	&& git fetch origin && git checkout -f plug-0102
 
 # default shell zsh
 RUN chsh -s /bin/zsh
