@@ -27,7 +27,8 @@ RUN vim +PlugInstall +qall
 
 # install locales
 RUN apt install -y locales \
-	&& locale-gen zh_CN.UTF-8
+	&& locale-gen zh_CN.UTF-8 \
+	&& locale-gen en_US.UTF-8
 
 # vim extra config
 RUN mkdir $UHOME/.vim_swap
