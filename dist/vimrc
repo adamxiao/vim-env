@@ -4,7 +4,6 @@
 call plug#begin('~/.vim/bundle')
 
 " colorscheme
-Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 " git plugins
 Plug 'zivyangll/git-blame.vim'
@@ -22,6 +21,7 @@ Plug 'dense-analysis/ale'
 " complete plugin
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " align plugin
 Plug 'junegunn/vim-easy-align'
 "Plug 'godlygeek/tabular'

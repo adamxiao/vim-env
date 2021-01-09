@@ -50,9 +50,11 @@ COPY dist/compile_flags.txt /root/compile_flags.txt
 
 #RUN mkdir -p $UHOME/.vim/bundle
 #WORKDIR $UHOME/.vim/bundle
-RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
-	&& cd YouCompleteMe && git submodule update --init --recursive \
-	&& python3 ./install.py --clangd-completer
+# install coc-clangd extension
+RUN curl -sL install-node.now.sh/lts | bash \
+	&& vim -c 'CocInstall -sync coc-clangd coc-json|q'
+
+RUN vim -c 'CocCommand clangd.install|q'
 
 RUN cd $UHOME && git init . \
 	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
