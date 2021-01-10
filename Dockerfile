@@ -51,10 +51,10 @@ COPY dist/compile_flags.txt /root/compile_flags.txt
 #RUN mkdir -p $UHOME/.vim/bundle
 #WORKDIR $UHOME/.vim/bundle
 # install coc-clangd extension
-RUN curl -sL install-node.now.sh/lts | bash \
-	&& vim -c 'CocInstall -sync coc-clangd coc-json|q'
-
-RUN vim -c 'CocCommand clangd.install|q'
+#RUN curl -sL install-node.now.sh/lts | bash
+RUN apt install -y nodejs npm clangd
+RUN vim -c 'CocInstall -sync coc-clangd coc-json|q'
+#RUN vim -c 'CocCommand clangd.install|q'
 
 RUN cd $UHOME && git init . \
 	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
