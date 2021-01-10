@@ -58,7 +58,7 @@ RUN vim -c 'CocCommand clangd.install|q'
 
 RUN cd $UHOME && git init . \
 	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f plug-0102
+	&& git fetch origin && git checkout -f coc.nvim
 
 # default shell zsh
 RUN chsh -s /bin/zsh
