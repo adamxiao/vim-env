@@ -62,7 +62,7 @@ RUN apt install -y python3-pip \
 # install adamxiao vimrc
 RUN cd $UHOME && git init . \
 	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f coc.nvim
+	&& git fetch origin && git checkout -f coc.nvim \
 	&& mkdir $UHOME/.vim_swap
 
 # install coc-clangd extension
