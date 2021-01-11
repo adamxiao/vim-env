@@ -27,7 +27,7 @@ RUN apt install -y locales \
 
 # install vim plugins
 RUN mkdir -p $UHOME/.vim/bundle \
-	cd $UHOME/.vim/bundle \
+	&& cd $UHOME/.vim/bundle \
 	&& git clone --depth=1 https://github.com/morhetz/gruvbox \
 	&& git clone --depth=1 https://github.com/zivyangll/git-blame.vim \
 	&& git clone --depth=1 https://github.com/airblade/vim-gitgutter \
