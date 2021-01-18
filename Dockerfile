@@ -50,6 +50,12 @@ RUN mkdir -p $UHOME/.vim/bundle \
 	&& git clone --depth=1 https://github.com/honza/vim-snippets \
 	&& git clone --depth=1 https://github.com/Kris2k/matchit \
 	&& git clone --depth=1 https://github.com/dimasg/vim-mark \
+	&& git clone --depth=1 https://github.com/tpope/vim-fugitive \
+	&& git clone --depth=1 https://github.com/mhinz/vim-grepper \
+	&& git clone --depth=1 https://github.com/PhilRunninger/nerdtree-visual-selection \
+	&& git clone --depth=1 https://github.com/Xuyuanp/nerdtree-git-plugin \
+	&& git clone --depth=1 https://github.com/tpope/vim-surround \
+	&& git clone --depth=1 https://github.com/tpope/vim-repeat \
 	&& git clone --depth=1 https://github.com/junegunn/fzf $UHOME/.fzf \
 	&& $UHOME/.fzf/install --bin
 
