@@ -68,7 +68,8 @@ RUN cd $UHOME && git init . \
 # install coc-clangd extension
 #RUN curl -sL install-node.now.sh/lts | bash
 RUN apt install -y nodejs npm clangd
-RUN vim -c 'CocInstall -sync coc-clangd coc-json|q'
+COPY ./dist/coc-plug-install.sh /coc-plug-install.sh
+RUN bash /coc-plug-install.sh
 
 # clang-format default config
 COPY dist/_clang-format /root/.clang-format
