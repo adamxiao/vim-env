@@ -56,6 +56,7 @@ RUN mkdir -p $UHOME/.vim/bundle \
 	&& git clone --depth=1 https://github.com/Xuyuanp/nerdtree-git-plugin \
 	&& git clone --depth=1 https://github.com/tpope/vim-surround \
 	&& git clone --depth=1 https://github.com/tpope/vim-repeat \
+	&& git clone --depth=1 https://github.com/jiangmiao/auto-pairs \
 	&& git clone --depth=1 https://github.com/junegunn/fzf $UHOME/.fzf \
 	&& $UHOME/.fzf/install --bin
 
@@ -68,7 +69,7 @@ RUN apt install -y python3-pip \
 # install adamxiao vimrc
 RUN cd $UHOME && git init . \
 	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f coc.nvim \
+	&& git fetch origin && git checkout -f master \
 	&& mkdir $UHOME/.vim_swap
 
 # install coc-clangd extension
