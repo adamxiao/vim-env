@@ -78,6 +78,11 @@ RUN apt install -y nodejs npm clangd
 COPY ./dist/coc-plug-install.sh /coc-plug-install.sh
 RUN bash /coc-plug-install.sh
 
+# install YouCompleteMe plugin
+RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
+	&& cd YouCompleteMe && git submodule update --init --recursive \
+	&& python3 ./install.py --clangd-completer
+
 # clang-format default config
 COPY dist/_clang-format /root/.clang-format
 # ycm clangd default compile flags
