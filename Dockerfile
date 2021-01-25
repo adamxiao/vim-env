@@ -66,12 +66,6 @@ RUN apt install -y python3-pip \
 	&& pip3 install autopep8 \
 	&& apt install -y cppcheck
 
-# install adamxiao vimrc
-RUN cd $UHOME && git init . \
-	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f master \
-	&& mkdir $UHOME/.vim_swap
-
 # install coc-clangd extension
 #RUN curl -sL install-node.now.sh/lts | bash
 RUN apt install -y nodejs npm clangd
@@ -82,6 +76,12 @@ RUN bash /coc-plug-install.sh
 RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
 	&& cd YouCompleteMe && git submodule update --init --recursive \
 	&& python3 ./install.py --clangd-completer
+
+# install adamxiao vimrc
+RUN cd $UHOME && git init . \
+	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
+	&& git fetch origin && git checkout -f master \
+	&& mkdir $UHOME/.vim_swap
 
 # clang-format default config
 COPY dist/_clang-format /root/.clang-format

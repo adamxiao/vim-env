@@ -8,7 +8,7 @@ docker run -it --restart=always -e TERM=xterm-256color --name vim -v $HOME/.ssh:
 ## change log
 
 2021.01.25 (coc.nvim-0125)
-coc.nvim , ycm plugin
+coc.nvim , ycm plugin, remove coc.nvim duplicate
 
 2021.01.09 (coc.nvim-0109)
 coc.nvim with more plugin
