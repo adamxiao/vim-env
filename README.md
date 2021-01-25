@@ -4,3 +4,11 @@ docker run -it --restart=always -e TERM=xterm-256color --name vim -v $HOME/.ssh:
 
 - install YCM
 - install vimrc in https://github.com/adamxiao/ubuntu_10.04_etc
+
+## change log
+
+2021.01.25 (coc.nvim-0125)
+coc.nvim , ycm plugin
+
+2021.01.09 (coc.nvim-0109)
+coc.nvim with more plugin
