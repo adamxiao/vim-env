@@ -13,10 +13,14 @@ ENV LESSCHARSET utf-8
 RUN apt-get update -y \
     && apt-get install -y \
     vim \
-    git tmux zsh \
+    git \
     curl wget \
-    ctags cscope zsh \
-    build-essential cmake python3-dev python3-requests
+    ctags \
+    silversearcher-ag \
+    locales \
+    && locale-gen zh_CN.UTF-8 \
+    && locale-gen en_US.UTF-8 \
+    && apt clean && rm -rf /var/lib/apt/lists/*
 
 ADD ./dist/vimrc $UHOME/.vim/vimrc
 ADD ./dist/plug.vim $UHOME/.vim/autoload/plug.vim
@@ -25,42 +29,12 @@ ADD ./dist/plug.vim $UHOME/.vim/autoload/plug.vim
 RUN vim +PlugInstall +qall
 #vi +':set nu' +':q!'
 
-# install locales
-RUN apt install -y locales \
-	&& locale-gen zh_CN.UTF-8 \
-	&& locale-gen en_US.UTF-8
-
 # vim extra config
-RUN mkdir $UHOME/.vim_swap
+RUN mkdir $UHOME/.vim_swap \
+    && cd $UHOME && git init . \
+    && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
+    && git fetch origin && git checkout -f master
 
-# code static check tools
-RUN  apt install -y python3-pip \
-	&& pip3 install cpplint \
-	&& pip3 install autopep8 \
-	&& apt install -y cppcheck
+WORKDIR /data
 
-# grep tools, format tools
-RUN apt install -y clang-format astyle \
-	ripgrep silversearcher-ag ack
-
-# clang-format default config
-COPY dist/_clang-format /root/.clang-format
-# ycm clangd default compile flags
-COPY dist/compile_flags.txt /root/compile_flags.txt
-
-#RUN mkdir -p $UHOME/.vim/bundle
-#WORKDIR $UHOME/.vim/bundle
-RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
-	&& cd YouCompleteMe && git submodule update --init --recursive \
-	&& python3 ./install.py --clangd-completer
-
-RUN cd $UHOME && git init . \
-	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f plug-0102
-
-# default shell zsh
-RUN chsh -s /bin/zsh
-
-WORKDIR $UHOME
-
-CMD ["zsh"]
+ENTRYPOINT ["vim"]
