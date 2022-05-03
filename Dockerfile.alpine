@@ -1,0 +1,41 @@
+FROM alpine:latest
+
+# TODO:
+# * locale-gen zh_CN.UTF-8
+# * ag
+# * fzf plugin fix...
+# * term fix
+
+# refer https://github.com/JAremko/alpine-vim
+
+MAINTAINER  Adam Xiao "iefcuxy@gmail.com"
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV UHOME=/root
+ENV LANG en_US.UTF-8
+ENV LESSCHARSET utf-8
+
+# basic vim install
+RUN apk add --no-cache \
+    vim \
+    git \
+    curl wget \
+    ctags \
+    bash
+
+ADD ./dist/vimrc $UHOME/.vim/vimrc
+ADD ./dist/plug.vim $UHOME/.vim/autoload/plug.vim
+
+# install vim plugins:
+RUN vim +PlugInstall +qall
+#vi +':set nu' +':q!'
+
+# vim extra config
+RUN mkdir $UHOME/.vim_swap \
+    && cd $UHOME && git init . \
+    && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
+    && git fetch origin && git checkout -f master
+
+WORKDIR /data
+
+ENTRYPOINT ["vim"]
