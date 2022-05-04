@@ -15,7 +15,7 @@ RUN apt-get update -y \
     vim \
     git \
     curl wget \
-    ctags \
+    ctags jq \
     silversearcher-ag \
     locales \
     && locale-gen zh_CN.UTF-8 \
@@ -38,4 +38,5 @@ RUN mkdir $UHOME/.vim_swap \
 
 WORKDIR /data
 
+ENV TERM=xterm-256color
 ENTRYPOINT ["vim"]
