@@ -33,7 +33,8 @@ RUN vim +PlugInstall +qall
 RUN mkdir $UHOME/.vim_swap \
     && cd $UHOME && git init . \
     && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-    && git fetch origin && git checkout -f master
+    && git fetch origin && git checkout -f master \
+    && git config --global --add safe.directory '*'
 
 WORKDIR /data
 
