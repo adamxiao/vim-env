@@ -10,12 +10,12 @@ ENV LANG en_US.UTF-8
 ENV LESSCHARSET utf-8
 
 # basic vim install
-RUN apt-get update -y \
-    && apt-get install -y \
+RUN apt update -y \
+    && apt install -y \
     vim \
     git \
     curl wget \
-    ctags jq \
+    universal-ctags jq python3 \
     silversearcher-ag \
     locales \
     && locale-gen zh_CN.UTF-8 \
@@ -35,6 +35,9 @@ RUN mkdir $UHOME/.vim_swap \
     && git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
     && git fetch origin && git checkout -f master \
     && git config --global --add safe.directory '*'
+
+# refer https://github.com/jszakmeister/markdown2ctags
+ADD ./dist/markdown2ctags.py /usr/bin/markdown2ctags.py
 
 WORKDIR /data
 
