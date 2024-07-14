@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 # refer https://github.com/JAremko/alpine-vim
 
@@ -10,10 +10,10 @@ ENV UHOME=/root
 # basic vim install
 RUN apt-get update -y \
 	&& apt-get install -y \
-	vim \
+	vim stow \
 	git tmux zsh \
 	curl wget \
-	ctags cscope zsh \
+	universal-ctags cscope zsh \
 	build-essential cmake python3-dev python3-requests
 
 # grep tools, format tools
@@ -61,10 +61,7 @@ RUN mkdir -p $UHOME/.vim/bundle \
 	&& $UHOME/.fzf/install --bin
 
 # code static check tools
-RUN apt install -y python3-pip \
-	&& pip3 install cpplint \
-	&& pip3 install autopep8 \
-	&& apt install -y cppcheck
+RUN apt install -y python3-pip cpplint python3-autopep8 cppcheck
 
 # install coc-clangd extension
 #RUN curl -sL install-node.now.sh/lts | bash
@@ -72,15 +69,15 @@ RUN apt install -y nodejs npm clangd
 COPY ./dist/coc-plug-install.sh /coc-plug-install.sh
 RUN bash /coc-plug-install.sh
 
-# install YouCompleteMe plugin
-RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
-	&& cd YouCompleteMe && git submodule update --init --recursive \
-	&& python3 ./install.py --clangd-completer
+## install YouCompleteMe plugin
+#RUN cd $UHOME/.vim/bundle && git clone --depth 1  https://github.com/Valloric/YouCompleteMe \
+#	&& cd YouCompleteMe && git submodule update --init --recursive \
+#	&& python3 ./install.py --clangd-completer
 
 # install adamxiao vimrc
-RUN cd $UHOME && git init . \
-	&& git remote add origin https://github.com/adamxiao/ubuntu_10.04_etc.git \
-	&& git fetch origin && git checkout -f master \
+RUN cd $UHOME && git clone https://github.com/adamxiao/ubuntu_10.04_etc.git $UHOME/.dotfiles \
+    && cd $UHOME/.dotfiles && stow vim tmux zsh \
+    && ln -sf $UHOME/.vim/vimrc-coc.vim $UHOME/.vimrc \
 	&& mkdir $UHOME/.vim_swap
 
 # clang-format default config
