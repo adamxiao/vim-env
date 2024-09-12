@@ -1,0 +1,29 @@
+# 配置定义详见 https://clang.llvm.org/docs/ClangFormatStyleOptions.htm
+---
+# 基于google风格
+BasedOnStyle: Google
+# 缩进宽度为4
+IndentWidth: 4
+# public,private 不缩进
+AccessModifierOffset: -4
+# 花括号使用linux风格,除了除函数、命名空间和类定义,其他都在语句末尾
+BreakBeforeBraces: Linux
+# //注释前留一个空格
+SpacesBeforeTrailingComments: 1
+# 不限定每行代码的最大长度, 因为分段的不好, 自己分段更合理一点
+ColumnLimit:     0 # 120 # fuck
+# 开括号(开圆括号、开尖括号、开方括号)后的对齐: Align, DontAlign, AlwaysBreak(总是在开括号后换行)
+AlignAfterOpenBracket:	DontAlign
+# 水平对齐二元和三元表达式的操作数
+AlignOperands:   false
+# 对齐连续的尾随的注释
+AlignTrailingComments: false
+# 不自动清除代码中的空行, 以免破坏代码的段落布局 => 最多连续三个空行
+MaxEmptyLinesToKeep: 3
+DerivePointerAlignment: false
+# 指针和引用的对齐: Left, Right, Middle
+PointerAlignment:	Right
+# 允许重新排版注释
+ReflowComments:  false
+# 允许排序#include
+SortIncludes: false
